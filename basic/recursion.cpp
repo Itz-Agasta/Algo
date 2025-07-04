@@ -97,9 +97,9 @@ void swapArr(int i, int n, int arr[])
 //     }
 //     cout << endl;
 // }
-
+// SC, TC = O(n)
 // Pal
-bool isPal(size_t i, string &s)
+bool isPal(size_t i, string &s) // If not "&" the space and time complexity will inc to O(2**n)
 {
     if (i >= s.size() / 2)
         return true;
@@ -118,6 +118,7 @@ bool isPal(size_t i, string &s)
 // }
 
 // Fibonaci using Recursion
+// TC = o(2**n)
 int fibo(int n)
 {
     if (n <= 1)
