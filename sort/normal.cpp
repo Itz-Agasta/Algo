@@ -1,19 +1,25 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// 1st loop --> How much part we will work on
+// 2nd part --> How much part we want to do swap
 /* Selection Sort
  * TC= O(n**2)------> sum of n natural num;
  * SC= O()
  */
+// let min something (i)
+// 0 --- n-1 where swap b/w 0 & min
+// 1 --- n-1 where swap b/w 1 & min
 void selection_sort(int arr[], int n)
-{
+{ // [0.......n-1]-----> Main pointer that loops the array
     for (int i = 0; i <= n - 2; i++)
     {
         int min = i; // Assume index 0 is lowset & so on
+        // For swap b/w min and first 0 then 1 and so on.....
         for (int j = i; j <= (n - 1); j++)
         {
             if (arr[j] < arr[min])
-                min = j; // if our assume wrong --> swap the index
+                min = j; // when we find the lowest num --> swap the index of min & it
         }
         // swap arr acc new index
         int temp = arr[min];
@@ -24,6 +30,10 @@ void selection_sort(int arr[], int n)
 
 // Bubble sort
 // TC= O(n**2)---> Avg, Worst | O(n) --> Best case (if arr is already sorted)
+// https://www.youtube.com/watch?v=xli_FI7CuzA
+// 0 -- n-1 swap
+// 0 -- n-2 swap ....
+// 0 -- 1 swap
 void bubble_sort(int arr[], int n)
 {
     for (int i = n - 1; i >= 1; i--)
