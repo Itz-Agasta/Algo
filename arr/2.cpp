@@ -98,17 +98,85 @@ void removeZero(int arr[], int n)
         }
     }
 }
+
+// Liner search
+int find(int arr[], int n, int num)
+{
+    for (int i = 0; i <= n - 1; i++)
+    {
+        if (arr[i] == num)
+            return i;
+    }
+    return -1;
+}
+
+// Union of two array
+set<int> unionFun(int arrayA[], int arrayB[], int n1, int n2)
+{
+    set<int> unionArray;
+    for (int i = 0; i <= n1 - 1; i++)
+        unionArray.insert(arrayA[i]);
+    for (int i = 0; i <= n2 - 1; i++)
+        unionArray.insert(arrayB[i]);
+
+    return unionArray;
+}
+
+vector<int> unionFun2(int arrayA[], int arrayB[], int n1, int n2)
+{
+    int i = 0;
+    int j = 0;
+    vector<int> newArray;
+    while (i < n1 && j < n2)
+    {
+        if (arrayA[i] <= arrayB[j])
+        {
+            if (newArray.size() == 0 || newArray.back() != arrayA[i])
+                newArray.push_back(arrayA[i]);
+            i++;
+        }
+        else
+        {
+            if (newArray.size() == 0 || newArray.back() != arrayB[j])
+                newArray.push_back(arrayB[j]);
+            j++;
+        }
+    }
+    while (i < n1)
+    {
+        if (newArray.size() == 0 || newArray.back() != arrayA[i])
+            newArray.push_back(arrayA[i]);
+        i++;
+    }
+    while (j < n2)
+    {
+        if (newArray.size() == 0 || newArray.back() != arrayB[j])
+            newArray.push_back(arrayB[j]);
+        j++;
+    }
+    return newArray;
+}
 int main()
 {
-    int n;
-    cin >> n;
-    int arr[n];
-    for (int i = 0; i <= n - 1; i++)
-        cin >> arr[i];
-    // fn call
-    int d;
-    cin >> d;
-    removeZero(arr, n);
-    for (int i = 0; i <= n - 1; i++)
-        cout << arr[i] << " ";
+    int n1, n2;
+    cout << "Enter size of first array: ";
+    cin >> n1;
+    int arrA[n1];
+    cout << "Enter elements of first array: ";
+    for (int i = 0; i < n1; i++)
+        cin >> arrA[i];
+
+    cout << "Enter size of second array: ";
+    cin >> n2;
+    int arrB[n2];
+    cout << "Enter elements of second array: ";
+    for (int i = 0; i < n2; i++)
+        cin >> arrB[i];
+
+    vector<int> uni = unionFun2(arrA, arrB, n1, n2);
+    cout << "Union: ";
+    for (int x : uni)
+        cout << x << " ";
+    cout << endl;
+    return 0;
 }
