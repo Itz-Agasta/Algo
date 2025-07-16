@@ -29,7 +29,7 @@ void left_byD(int arr[], int n, int d)
     // }
     // // join
     // int j = 0;
-    // for (int i = n - d; i <= n - 1; i++)
+    // for (int i = n - d; i <= n - 1; i++) // As total array was n ,,, we took the d numbers left n-d
     // {
     //     arr[i] = temp[j]; // temp[i-(n-d)]
     //     j++;
@@ -55,29 +55,26 @@ void removeZero(int arr[], int n)
 {
     // // TC ==O(2N)   sc == O(n)
     // // s1--> store all non zero in a temp array
-    // vector<int> temp;
-    // for (int i = 0; i <= n - 1; i++)
-    // {
+    // int zeroCount = 0;
+
+    // // Count zeros
+    // for (int i = 0; i < n; i++)
+    //     if (arr[i] == 0)
+    //         zeroCount++;
+
+    // // Copy non-zeros to front
+    // int j = 0;
+    // for (int i = 0; i < n; i++)
     //     if (arr[i] != 0)
-    //         temp.push_back(arr[i]);
-    // }
+    //         arr[j++] = arr[i];
 
-    // // s2--> fill the array again with teh temp element
-    // int nz = temp.size();
-    // for (int i = 0; i < nz; i++)
-    // {
-    //     arr[i] = temp[i];
-    // }
-
-    // // s3 --> we know the size is n so fill teh others with zero
-    // for (int i = nz; i < n; i++)
-    // {
+    // // Fill zeros at the end
+    // for (int i = n - zeroCount; i < n; i++)
     //     arr[i] = 0;
-    // }
 
     // optimized
     // TC = O(n) sc == O(1)
-    // s1 --> find teh 1st zeo in the array
+    // s1 --> find teh 1st zero in the array
     int j = -1;
     for (int i = 0; i <= n - 1; i++)
     {
@@ -111,6 +108,9 @@ int find(int arr[], int n, int num)
 }
 
 // Union of two array
+// Overall TC: O((n1 + n2) * log (n1 + n2))
+// Overall SC: O(n1 + n2)
+
 set<int> unionFun(int arrayA[], int arrayB[], int n1, int n2)
 {
     set<int> unionArray;
@@ -156,6 +156,40 @@ vector<int> unionFun2(int arrayA[], int arrayB[], int n1, int n2)
     }
     return newArray;
 }
+
+vector<int> intersection(int arrayA[], int arrayB[], int n1, int n2)
+{
+    vector<int> ans;
+
+    for (int i = 0; i <= n1 - 1; i++)
+    {
+        bool isPresentB = false;
+        for (int j = 0; j <= n2 - 1; j++)
+        {
+            if (arrayA[i] == arrayB[j])
+            {
+                isPresentB = true;
+                break;
+            }
+        }
+        if (isPresentB)
+        {
+            bool isTaken = false;
+            for (size_t k = 0; k < ans.size(); k++)
+            {
+                if (arrayA[i] == ans[k])
+                {
+                    isTaken = true;
+                    break;
+                }
+            }
+            if (!isTaken)
+                ans.push_back(arrayA[i]);
+        }
+    }
+    return ans;
+}
+
 int main()
 {
     int n1, n2;
@@ -173,7 +207,7 @@ int main()
     for (int i = 0; i < n2; i++)
         cin >> arrB[i];
 
-    vector<int> uni = unionFun2(arrA, arrB, n1, n2);
+    vector<int> uni = intersection(arrA, arrB, n1, n2);
     cout << "Union: ";
     for (int x : uni)
         cout << x << " ";
